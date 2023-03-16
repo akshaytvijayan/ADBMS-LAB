@@ -6,7 +6,7 @@
 
 A) 
  MYSQL>CREATE TABLE EMPLOYEE(emp_id INT NOT NULL,Name VARCHAR(20),City VARCHAR(20),dob DATE,adhar_no INT);
-???????????????????/
+  Query OK, 0 rows affected (0.25 sec)
 mysql> desc EMPLOYEE;
 +----------+-------------+------+-----+---------+-------+
 | Field    | Type        | Null | Key | Default | Extra |
@@ -28,8 +28,9 @@ mysql> desc EMPLOYEE;
                Gender- default value is ‘m’
 
 A)
- CREATE TABLE STUDENT(Roll_no int Primary key,Name varchar(50) not null,Age int CHECK(Age>=0 and Age<=99),Address varchar(50),Gender varchar(10) default "M");
-?????????
+ MYSQL>CREATE TABLE STUDENT(Roll_no int Primary key,Name varchar(50) not null,Age int CHECK(Age>=0 and Age<=99),Address varchar(50),Gender varchar(10) default "M");
+Query OK, 0 rows affected (0.22 sec)
+
 mysql> desc STUDENT;
 +---------+-------------+------+-----+---------+-------+
 | Field   | Type        | Null | Key | Default | Extra |
@@ -45,7 +46,9 @@ mysql> desc STUDENT;
 
     3.      Create a temporary table STUDENT1 of STUDENT relation.
 A)
-Create temporary table STUDENT1 select*from STUDENT;
+MYSQL>Create temporary table STUDENT1 select*from STUDENT;
+Query OK, 0 rows affected (0.00 sec)
+Records: 0  Duplicates: 0  Warnings: 0
 
 mysql>  DESC STUDENT1;
 +---------+-------------+------+-----+---------+-------+
@@ -61,7 +64,9 @@ mysql>  DESC STUDENT1;
 
     4.      Create a duplicate table of EMPLOYEE.
 A)
-  Create table EMPLOYEE1 select*from EMPLOYEE;
+MYSQL>Create table EMPLOYEE1 select*from EMPLOYEE;
+Query OK, 0 rows affected (0.18 sec)
+Records: 0  Duplicates: 0  Warnings: 0
 
 mysql>  DESC EMPLOYEE1;
 +----------+-------------+------+-----+---------+-------+
@@ -83,11 +88,14 @@ mysql>  DESC EMPLOYEE1;
                       Invoice_item(inv_id (FK),  pid(FK), quantity)
    
 A)
-create database INVOICE1;
+MYSQL>create database INVOICE1;
+Query OK, 1 row affected (0.00 sec)
+   
+MYSQL>use INVOICE1;
+Database changed
 
- use INVOICE1;
-
-create table CUSTOMER(id INT PRIMARY KEY,Name VARCHAR(20),Address VARCHAR(20),City VARCHAR(20),Ph_no INT);
+MYSQL>create table CUSTOMER(id INT PRIMARY KEY,Name VARCHAR(20),Address VARCHAR(20),City VARCHAR(20),Ph_no INT);
+Query OK, 0 rows affected (0.19 sec)
 
 mysql> desc CUSTOMER;
 +---------+-------------+------+-----+---------+-------+
@@ -101,8 +109,8 @@ mysql> desc CUSTOMER;
 +---------+-------------+------+-----+---------+-------+
 5 rows in set (0.00 sec)
 
- CREATE TABLE PRODUCT(pid INT PRIMARY KEY,pName VARCHAR(20),Price int default 0);
-
+MYSQL>CREATE TABLE PRODUCT(pid INT PRIMARY KEY,pName VARCHAR(20),Price int default 0);
+Query OK, 0 rows affected (0.19 sec)
 mysql> desc PRODUCT;
 +-------+-------------+------+-----+---------+-------+
 | Field | Type        | Null | Key | Default | Extra |
@@ -113,7 +121,8 @@ mysql> desc PRODUCT;
 +-------+-------------+------+-----+---------+-------+
 3 rows in set (0.00 sec)
 
- CREATE TABLE Invoice1_master(inv_id INT PRIMARY KEY,cust_id INT REFERENCES CUSTOMER(id),inv_date DATE);
+MYSQL>CREATE TABLE Invoice1_master(inv_id INT PRIMARY KEY,cust_id INT REFERENCES CUSTOMER(id),inv_date DATE);
+Query OK, 0 rows affected (0.19 sec)
 
 mysql> desc Invoice1_item;
 +----------+---------+------+-----+---------+-------+
@@ -125,7 +134,8 @@ mysql> desc Invoice1_item;
 +----------+---------+------+-----+---------+-------+
 3 rows in set (0.00 sec)
 
- CREATE TABLE Invoice1_item(inv_id INT REFERENCES invoice1_master(inv_id),pid INT REFERENCES PRODUCT(id),quantity INT);
+MYSQL>CREATE TABLE Invoice1_item(inv_id INT REFERENCES invoice1_master(inv_id),pid INT REFERENCES PRODUCT(id),quantity INT);
+Query OK, 0 rows affected (0.19 sec)
 
 mysql> desc Invoice1_item;
 +----------+---------+------+-----+---------+-------+
