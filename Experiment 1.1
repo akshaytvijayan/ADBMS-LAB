@@ -1,11 +1,12 @@
-1.1)        DDL COMMANDS
+                EXP: 1.1)        DDL COMMANDS
+                *****************************
 
   a) DDL COMMANDS-CREATE
      1.      Create a table EMPLOYEE have the following fields (emp_id, name,city,dob,adhar_no)
 
 A) 
- CREATE TABLE EMPLOYEE(emp_id INT NOT NULL,Name VARCHAR(20),City VARCHAR(20),dob DATE,adhar_no INT);
-
+ MYSQL>CREATE TABLE EMPLOYEE(emp_id INT NOT NULL,Name VARCHAR(20),City VARCHAR(20),dob DATE,adhar_no INT);
+???????????????????/
 mysql> desc EMPLOYEE;
 +----------+-------------+------+-----+---------+-------+
 | Field    | Type        | Null | Key | Default | Extra |
@@ -28,7 +29,7 @@ mysql> desc EMPLOYEE;
 
 A)
  CREATE TABLE STUDENT(Roll_no int Primary key,Name varchar(50) not null,Age int CHECK(Age>=0 and Age<=99),Address varchar(50),Gender varchar(10) default "M");
-
+?????????
 mysql> desc STUDENT;
 +---------+-------------+------+-----+---------+-------+
 | Field   | Type        | Null | Key | Default | Extra |
@@ -136,3 +137,5 @@ mysql> desc Invoice1_item;
 +----------+---------+------+-----+---------+-------+
 3 rows in set (0.00 sec)
 
+//ADD MYSQL> BEFORE EACH QUERY
+//ADD PROPER OUTPUT
