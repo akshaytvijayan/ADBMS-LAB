@@ -1,0 +1,165 @@
+Experiment No: 1.3- Relational database design using MySQL - (1.3) TCL & DCL Commands
+RESMI S R
+
+a) TCL COMMANDS
+***************************************************************************************************************************************
+           1.    Commit
+
+A)
+
+mysql> SET AUTOCOMMIT=OFF;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into PERSON(SSN,Name,City,adhar_no) values(12340,"Gokula","Chennai",789456136);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into PERSON(SSN,Name,City) values(12320,"Geetha","Madhura");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> COMMIT;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> SELECT*FROM PERSON;
++-------+---------+------------+------+-----------+
+| SSN   | Name    | City       | dob  | adhar_no  |
++-------+---------+------------+------+-----------+
+| 12345 | Maanas  | Kozhikode  | 2001 | 234523453 |
+| 12346 | Vishak  | Kozhikode  | 2000 | 559535262 |
+| 12347 | Aswin   | Delhi      | 2000 | 875638239 |
+| 12348 | Vishnu  | Bangalore  | 2001 | 878673456 |
+| 12349 | Minhaj  | Malappuram | 1999 | 567329876 |
+| 12350 | Aaliya  | Kochi      | 1998 | 656565556 |
+| 12351 | Nileena | Kannur     | 1998 | 662584355 |
+| 12340 | Gokula  | Chennai    | NULL | 789456136 |
+| 12320 | Geetha  | Madhura    | NULL |      NULL |
++-------+---------+------------+------+-----------+
+9 rows in set (0.00 sec)
+***************************************************************************************************************************************
+           2.    Rollback
+
+A)
+
+mysql> delete from PERSON where Name="Geetha";
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT*FROM PERSON;
++-------+---------+------------+------+-----------+
+| SSN   | Name    | City       | dob  | adhar_no  |
++-------+---------+------------+------+-----------+
+| 12345 | Maanas  | Kozhikode  | 2001 | 234523453 |
+| 12346 | Vishak  | Kozhikode  | 2000 | 559535262 |
+| 12347 | Aswin   | Delhi      | 2000 | 875638239 |
+| 12348 | Vishnu  | Bangalore  | 2001 | 878673456 |
+| 12349 | Minhaj  | Malappuram | 1999 | 567329876 |
+| 12350 | Aaliya  | Kochi      | 1998 | 656565556 |
+| 12351 | Nileena | Kannur     | 1998 | 662584355 |
+| 12340 | Gokula  | Chennai    | NULL | 789456136 |
++-------+---------+------------+------+-----------+
+8 rows in set (0.00 sec)
+
+mysql> ROLLBACK;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> SELECT*FROM PERSON;
++-------+---------+------------+------+-----------+
+| SSN   | Name    | City       | dob  | adhar_no  |
++-------+---------+------------+------+-----------+
+| 12345 | Maanas  | Kozhikode  | 2001 | 234523453 |
+| 12346 | Vishak  | Kozhikode  | 2000 | 559535262 |
+| 12347 | Aswin   | Delhi      | 2000 | 875638239 |
+| 12348 | Vishnu  | Bangalore  | 2001 | 878673456 |
+| 12349 | Minhaj  | Malappuram | 1999 | 567329876 |
+| 12350 | Aaliya  | Kochi      | 1998 | 656565556 |
+| 12351 | Nileena | Kannur     | 1998 | 662584355 |
+| 12340 | Gokula  | Chennai    | NULL | 789456136 |
+| 12320 | Geetha  | Madhura    | NULL |      NULL |
++-------+---------+------------+------+-----------+
+9 rows in set (0.00 sec)
+***************************************************************************************************************************************
+           3.    Savepoint
+
+A)
+
+mysql> insert into PERSON(SSN,Name,City,adhar_no) values(12323,"Fidha","Chennai",295648628);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SAVEPOINT S1;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into PERSON(SSN,Name,adhar_no) values(12533,"UNNI",296648628);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SAVEPOINT S2;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SELECT*FROM PERSON;
++-------+---------+------------+------+-----------+
+| SSN   | Name    | City       | dob  | adhar_no  |
++-------+---------+------------+------+-----------+
+| 12345 | Maanas  | Kozhikode  | 2001 | 234523453 |
+| 12346 | Vishak  | Kozhikode  | 2000 | 559535262 |
+| 12347 | Aswin   | Delhi      | 2000 | 875638239 |
+| 12348 | Vishnu  | Bangalore  | 2001 | 878673456 |
+| 12349 | Minhaj  | Malappuram | 1999 | 567329876 |
+| 12350 | Aaliya  | Kochi      | 1998 | 656565556 |
+| 12351 | Nileena | Kannur     | 1998 | 662584355 |
+| 12340 | Gokula  | Chennai    | NULL | 789456136 |
+| 12320 | Geetha  | Madhura    | NULL |      NULL |
+| 12323 | Fidha   | Chennai    | NULL | 295648628 |
+| 12533 | UNNI    | NULL       | NULL | 296648628 |
++-------+---------+------------+------+-----------+
+11 rows in set (0.00 sec)
+
+mysql> ROLLBACK TO S1;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SELECT*FROM PERSON;
++-------+---------+------------+------+-----------+
+| SSN   | Name    | City       | dob  | adhar_no  |
++-------+---------+------------+------+-----------+
+| 12345 | Maanas  | Kozhikode  | 2001 | 234523453 |
+| 12346 | Vishak  | Kozhikode  | 2000 | 559535262 |
+| 12347 | Aswin   | Delhi      | 2000 | 875638239 |
+| 12348 | Vishnu  | Bangalore  | 2001 | 878673456 |
+| 12349 | Minhaj  | Malappuram | 1999 | 567329876 |
+| 12350 | Aaliya  | Kochi      | 1998 | 656565556 |
+| 12351 | Nileena | Kannur     | 1998 | 662584355 |
+| 12340 | Gokula  | Chennai    | NULL | 789456136 |
+| 12320 | Geetha  | Madhura    | NULL |      NULL |
+| 12323 | Fidha   | Chennai    | NULL | 295648628 |
++-------+---------+------------+------+-----------+
+10 rows in set (0.00 sec)
+***************************************************************************************************************************************
+b) DCL COMMAND
+------------------------------------------------------------------------------------------------------------------------------------------
+          Create two users user1, user2
+A)
+
+mysql> CREATE USER USER1@'localhost' IDENTIFIED BY 'pass1';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> CREATE USER USER2@'localhost' IDENTIFIED BY 'pass2';
+Query OK, 0 rows affected (0.00 sec)
+
+---------------------------------------------------------------------------------------------------------------------------------
+         1.      GRANT
+                    ->Give insert and select privilege to user 1 on customer table in the invoice database.
+                    ->Give update and delete privilege to user 2 on all tables in the invoice database.
+
+A)
+
+mysql>  GRANT INSERT,SELECT ON CUSTOMER TO USER1@'localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> GRANT UPDATE,DELETE ON INVOICE1.* TO USER2@'localhost';
+Query OK, 0 rows affected (0.02 sec)
+
+***************************************************************************************************************************************
+        2.      REVOKE
+                   ->Remove delete privilege of user 2.
+
+A)
+
+mysql> REVOKE DELETE ON INVOICE1.* FROM USER2@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+***************************************************************************************************************************************
