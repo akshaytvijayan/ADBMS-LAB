@@ -141,6 +141,25 @@ Query OK, 0 rows affected (0.00 sec)
 mysql> CREATE USER USER2@'localhost' IDENTIFIED BY 'pass2';
 Query OK, 0 rows affected (0.00 sec)
 
+mysql> select user from mysql.user;
++------------------+
+| user             |
++------------------+
+| USER1            |
+| USER2            |
+| abc              |
+| akshay           |
+| amr              |
+| amrutha          |
+| debian-sys-maint |
+| mysql.session    |
+| mysql.sys        |
+| phpmyadmin       |
+| root             |
+| user1            |
+| user2            |
++------------------+
+13 rows in set (0.00 sec)
 ---------------------------------------------------------------------------------------------------------------------------------
          1.      GRANT
                     ->Give insert and select privilege to user 1 on customer table in the invoice database.
@@ -151,9 +170,26 @@ A)
 mysql>  GRANT INSERT,SELECT ON CUSTOMER TO USER1@'localhost';
 Query OK, 0 rows affected (0.01 sec)
 
+mysql> show grants for "USER1"@"localhost";
++----------------------------------------------------------------------+
+| Grants for USER1@localhost                                           |
++----------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO 'USER1'@'localhost'                            |
+| GRANT SELECT, INSERT ON `INVOICE1`.`CUSTOMER` TO 'USER1'@'localhost' |
++----------------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
 mysql> GRANT UPDATE,DELETE ON INVOICE1.* TO USER2@'localhost';
 Query OK, 0 rows affected (0.02 sec)
 
+mysql> SHOW GRANTS FOR USER2@'localhost';
++-------------------------------------------------------------+
+| Grants for USER2@localhost                                  |
++-------------------------------------------------------------+
+| GRANT USAGE ON *.* TO 'USER2'@'localhost'                   |
+| GRANT UPDATE, DELETE ON `INVOICE1`.* TO 'USER2'@'localhost' |
++-------------------------------------------------------------+
+2 rows in set (0.00 sec)
 ***************************************************************************************************************************************
         2.      REVOKE
                    ->Remove delete privilege of user 2.
@@ -162,4 +198,13 @@ A)
 
 mysql> REVOKE DELETE ON INVOICE1.* FROM USER2@'localhost';
 Query OK, 0 rows affected (0.00 sec)
+
+mysql>  SHOW GRANTS FOR USER2@'localhost';
++-----------------------------------------------------+
+| Grants for USER2@localhost                          |
++-----------------------------------------------------+
+| GRANT USAGE ON *.* TO 'USER2'@'localhost'           |
+| GRANT UPDATE ON `INVOICE1`.* TO 'USER2'@'localhost' |
++-----------------------------------------------------+
+2 rows in set (0.00 sec)
 ***************************************************************************************************************************************
