@@ -1,0 +1,301 @@
+Experiment No: 1.4 ACCESSING DATABASE:  (SELECT, Filtering using WHERE, HAVING,  ORDER BY Clauses)
+RESMI S R
+-------------------------------------------------------------------------------------------------------------------------------------------
+1.    List all customer details.
+
+A)
+
+mysql> select * from CUSTOMER;
++-------+-------------+----------------+-------------+-----------+
+| id    | Name        | Address        | City        | Ph_no     |
++-------+-------------+----------------+-------------+-----------+
+| 10002 | Eswaran     | Manarassala    | Trivandram  | 964259130 |
+| 10003 | Gokul       | Mandhavaadi    | Calicut     |  81698067 |
+| 10004 | kumar       | kakkanadu      | Kochi       | 818037925 |
+| 10005 | Ram kumar   | Iritti         | Kannur      | 731069450 |
+| 10006 | Raj kumar   | Irangalakuda   | Alazhapuzha | 912559450 |
+| 10007 | Vijay kumar | Waynad         | Kalpatta    | 605034891 |
+| 10009 | Vishak      | Haritham villa | CALICUT     | 956321485 |
++-------+-------------+----------------+-------------+-----------+
+7 rows in set (0.00 sec)
+***************************************************************************************************************************************
+2.    List pname, price of all products.
+
+A)
+
+mysql> select pName,PRICE from PRODUCT;
++-----------------+-------+
+| pName           | PRICE |
++-----------------+-------+
+| DARK CHOCALATE  |   173 |
+| WHITE CHOCALATE |   102 |
+| PEN             |     5 |
+| PENCIL          |     5 |
+| RUBBER          |     3 |
+| SCALE           |     4 |
+| SKETCH          |    20 |
++-----------------+-------+
+7 rows in set (0.00 sec)
+***************************************************************************************************************************************
+3.    List all invoice items, avoid duplicates.
+
+A)
+mysql> SELECT DISTINCT inv_id FROM Invoice1_item;
++--------+
+| inv_id |
++--------+
+|  98666 |
+|  98765 |
+|  98626 |
+|   6220 |
+|   6290 |
+|  98636 |
+|  98766 |
+|  98776 |
+|  98786 |
++--------+
+9 rows in set (0.00 sec)
+***************************************************************************************************************************************
+4.    List product price between 50rs and 150rs
+
+A)
+mysql> SELECT * FROM PRODUCT WHERE PRICE BETWEEN 50 AND 150;
++-----+-----------------+-------+
+| pid | pName           | Price |
++-----+-----------------+-------+
+| 101 | WHITE CHOCALATE |   102 |
++-----+-----------------+-------+
+1 row in set (0.02 sec)
+***************************************************************************************************************************************
+5.    List the customer details who lives in ‘ekm’,’tvm’.
+
+A)
+mysql> SELECT * FROM CUSTOMER WHERE City="Calicut" OR City="Kannur";
++-------+-----------+----------------+---------+-----------+
+| id    | Name      | Address        | City    | Ph_no     |
++-------+-----------+----------------+---------+-----------+
+| 10003 | Gokul     | Mandhavaadi    | Calicut |  81698067 |
+| 10005 | Ram kumar | Iritti         | Kannur  | 731069450 |
+| 10009 | Vishak    | Haritham villa | CALICUT | 956321485 |
++-------+-----------+----------------+---------+-----------+
+3 rows in set (0.00 sec)
+***************************************************************************************************************************************
+6.    List the invoice details from 1st January 2023 to 15th February 2023
+
+A)
+
+mysql> SELECT*FROM Invoice1_master;
++--------+---------+------------+
+| inv_id | cust_id | inv_date   |
++--------+---------+------------+
+|   1729 |     100 | 2023-04-21 |
+|  65325 |     100 | 2023-06-15 |
+|  65365 |     100 | 2023-06-25 |
+|  65425 |     100 | 2023-01-15 |
+|  65656 |     100 | 2023-05-25 |
+|  98636 |   10006 | 2023-03-24 |
+|  98666 |   10003 | 2023-03-25 |
+|  98686 |   10004 | 2023-03-29 |
+|  98765 |   10001 | 2023-03-22 |
+|  98766 |   10005 | 2023-03-23 |
+|  98776 |   10005 | 2023-03-20 |
+|  98786 |   10009 | 2023-03-29 |
+| 630205 |     100 | 2023-02-10 |
+| 630625 |     100 | 2023-02-02 |
+| 653205 |     100 | 2023-01-10 |
+| 653225 |     100 | 2023-01-14 |
++--------+---------+------------+
+16 rows in set (0.00 sec)
+
+mysql> select * from Invoice1_master where inv_date between '2023-01-01' and '2023-03-15';
++--------+---------+------------+
+| inv_id | cust_id | inv_date   |
++--------+---------+------------+
+|  65425 |     100 | 2023-01-15 |
+| 630205 |     100 | 2023-02-10 |
+| 630625 |     100 | 2023-02-02 |
+| 653205 |     100 | 2023-01-10 |
+| 653225 |     100 | 2023-01-14 |
++--------+---------+------------+
+5 rows in set (0.00 sec)
+***************************************************************************************************************************************
+7.    List the customer details who not live in ‘tvm’.
+
+A)
+ 
+mysql> SELECT*FROM CUSTOMER;
++-------+-------------+----------------+-------------+-----------+
+| id    | Name        | Address        | City        | Ph_no     |
++-------+-------------+----------------+-------------+-----------+
+| 10002 | Eswaran     | Manarassala    | Trivandram  | 964259130 |
+| 10003 | Gokul       | Mandhavaadi    | Calicut     |  81698067 |
+| 10004 | kumar       | kakkanadu      | Kochi       | 818037925 |
+| 10005 | Ram kumar   | Iritti         | Kannur      | 731069450 |
+| 10006 | Raj kumar   | Irangalakuda   | Alazhapuzha | 912559450 |
+| 10007 | Vijay kumar | Waynad         | Kalpatta    | 605034891 |
+| 10009 | Vishak      | Haritham villa | CALICUT     | 956321485 |
++-------+-------------+----------------+-------------+-----------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT*FROM CUSTOMER WHERE City !="Trivandram";
++-------+-------------+----------------+-------------+-----------+
+| id    | Name        | Address        | City        | Ph_no     |
++-------+-------------+----------------+-------------+-----------+
+| 10003 | Gokul       | Mandhavaadi    | Calicut     |  81698067 |
+| 10004 | kumar       | kakkanadu      | Kochi       | 818037925 |
+| 10005 | Ram kumar   | Iritti         | Kannur      | 731069450 |
+| 10006 | Raj kumar   | Irangalakuda   | Alazhapuzha | 912559450 |
+| 10007 | Vijay kumar | Waynad         | Kalpatta    | 605034891 |
+| 10009 | Vishak      | Haritham villa | CALICUT     | 956321485 |
++-------+-------------+----------------+-------------+-----------+
+6 rows in set (0.00 sec)
+***************************************************************************************************************************************
+8.    List the customers who have no phone number.
+
+A)
+
+mysql> SELECT*FROM CUSTOMER;
++-------+-------------+----------------+-------------+-----------+
+| id    | Name        | Address        | City        | Ph_no     |
++-------+-------------+----------------+-------------+-----------+
+| 10002 | Eswaran     | Manarassala    | Trivandram  | 964259130 |
+| 10003 | Gokul       | Mandhavaadi    | Calicut     |  81698067 |
+| 10004 | kumar       | kakkanadu      | Kochi       | 818037925 |
+| 10005 | Ram kumar   | Iritti         | Kannur      | 731069450 |
+| 10006 | Raj kumar   | Irangalakuda   | Alazhapuzha | 912559450 |
+| 10007 | Vijay kumar | Waynad         | Kalpatta    | 605034891 |
+| 10009 | Vishak      | Haritham villa | CALICUT     | 956321485 |
+| 10010 | Madhav      | pullikalhouse  | Calicut     |      NULL |
+| 11010 | Ishi Madhav | kalhouse       | Calicut     |      NULL |
++-------+-------------+----------------+-------------+-----------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT*FROM CUSTOMER WHERE Ph_no IS NULL;
++-------+-------------+---------------+---------+-------+
+| id    | Name        | Address       | City    | Ph_no |
++-------+-------------+---------------+---------+-------+
+| 10010 | Madhav      | pullikalhouse | Calicut |  NULL |
+| 11010 | Ishi Madhav | kalhouse      | Calicut |  NULL |
++-------+-------------+---------------+---------+-------+
+2 rows in set (0.00 sec)
+***************************************************************************************************************************************
+9.    Display customer names in descending order.
+
+A)
+
+mysql>  select * from CUSTOMER order by name desc;
++-------+-------------+----------------+-------------+-----------+
+| id    | Name        | Address        | City        | Ph_no     |
++-------+-------------+----------------+-------------+-----------+
+| 10009 | Vishak      | Haritham villa | CALICUT     | 956321485 |
+| 10007 | Vijay kumar | Waynad         | Kalpatta    | 605034891 |
+| 10005 | Ram kumar   | Iritti         | Kannur      | 731069450 |
+| 10006 | Raj kumar   | Irangalakuda   | Alazhapuzha | 912559450 |
+| 10010 | Madhav      | pullikalhouse  | Calicut     |      NULL |
+| 10004 | kumar       | kakkanadu      | Kochi       | 818037925 |
+| 11010 | Ishi Madhav | kalhouse       | Calicut     |      NULL |
+| 10003 | Gokul       | Mandhavaadi    | Calicut     |  81698067 |
+| 10002 | Eswaran     | Manarassala    | Trivandram  | 964259130 |
++-------+-------------+----------------+-------------+-----------+
+9 rows in set (0.00 sec)
+***************************************************************************************************************************************
+10. Display the customer details sorted in ascending by city and descending by names.
+
+A)
+
+mysql> select * from CUSTOMER order by city asc,name desc;
++-------+-------------+----------------+-------------+-----------+
+| id    | Name        | Address        | City        | Ph_no     |
++-------+-------------+----------------+-------------+-----------+
+| 10006 | Raj kumar   | Irangalakuda   | Alazhapuzha | 912559450 |
+| 10009 | Vishak      | Haritham villa | CALICUT     | 956321485 |
+| 10010 | Madhav      | pullikalhouse  | Calicut     |      NULL |
+| 11010 | Ishi Madhav | kalhouse       | Calicut     |      NULL |
+| 10003 | Gokul       | Mandhavaadi    | Calicut     |  81698067 |
+| 10007 | Vijay kumar | Waynad         | Kalpatta    | 605034891 |
+| 10005 | Ram kumar   | Iritti         | Kannur      | 731069450 |
+| 10004 | kumar       | kakkanadu      | Kochi       | 818037925 |
+| 10002 | Eswaran     | Manarassala    | Trivandram  | 964259130 |
++-------+-------------+----------------+-------------+-----------+
+9 rows in set (0.00 sec)
+***************************************************************************************************************************************
+11. Find the customer names start with ‘v’.
+
+A)
+
+mysql> select name from CUSTOMER where name like 'v%';
++-------------+
+| name        |
++-------------+
+| Vijay kumar |
+| Vishak      |
++-------------+
+2 rows in set (0.00 sec)
+
+***************************************************************************************************************************************
+12. Find the customer names who have ‘e’ or ‘a’ in them.
+
+A)
+
+mysql>  select Name from CUSTOMER where Name like '%a%' or Name like '%e%';
++-------------+
+| Name        |
++-------------+
+| Eswaran     |
+| kumar       |
+| Ram kumar   |
+| Raj kumar   |
+| Vijay kumar |
+| Vishak      |
+| Madhav      |
+| Ishi Madhav |
++-------------+
+8 rows in set (0.01 sec)
+***************************************************************************************************************************************
+13. Find the customer names who have at least 3 characters.
+
+A)
+
+mysql> select Name from CUSTOMER where Name like '___%';
++-------------+
+| Name        |
++-------------+
+| Eswaran     |
+| Gokul       |
+| kumar       |
+| Ram kumar   |
+| Raj kumar   |
+| Vijay kumar |
+| Vishak      |
+| Madhav      |
+| Ishi Madhav |
++-------------+
+9 rows in set (0.00 sec)
+***************************************************************************************************************************************
+14. List the names of customers their names have ‘r’ in second position.
+
+A)
+
+mysql> select Name from CUSTOMER where Name like '_a%';
++-----------+
+| Name      |
++-----------+
+| Ram kumar |
+| Raj kumar |
+| Madhav    |
++-----------+
+3 rows in set (0.00 sec)
+***************************************************************************************************************************************
+15. Find the customer names start with ‘a’ and are at least 3 characters in length.
+
+A)
+
+mysql>  select Name from CUSTOMER where Name like 'v__%';
++-------------+
+| Name        |
++-------------+
+| Vijay kumar |
+| Vishak      |
++-------------+
+2 rows in set (0.00 sec)
+***************************************************************************************************************************************
