@@ -1,0 +1,177 @@
+EXPERIMENT NO: 1.5 - ACCESSING DATABASE:  (SUBQUERY)
+RESMI S R
+***************************************************************************************************************************************
+mysql> SELECT*FROM CUSTOMER;
++-------+-------------+----------------+-------------+-----------+
+| id    | Name        | Address        | City        | Ph_no     |
++-------+-------------+----------------+-------------+-----------+
+| 10002 | Eswaran     | Manarassala    | Trivandram  | 964259130 |
+| 10003 | Gokul       | Mandhavaadi    | Calicut     |  81698067 |
+| 10004 | kumar       | kakkanadu      | Kochi       | 818037925 |
+| 10005 | Ram kumar   | Iritti         | Kannur      | 731069450 |
+| 10006 | Raj kumar   | Irangalakuda   | Alazhapuzha | 912559450 |
+| 10007 | Vijay kumar | Waynad         | Kalpatta    | 605034891 |
+| 10009 | Vishak      | Haritham villa | CALICUT     | 956321485 |
+| 10010 | Madhav      | pullikalhouse  | Calicut     |      NULL |
+| 11010 | Ishi Madhav | kalhouse       | Calicut     |      NULL |
++-------+-------------+----------------+-------------+-----------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT*FROM PRODUCT;
++-----+-----------------+-------+
+| pid | pName           | Price |
++-----+-----------------+-------+
+| 100 | DARK CHOCALATE  |   173 |
+| 101 | WHITE CHOCALATE |   102 |
+| 102 | PEN             |     5 |
+| 103 | PENCIL          |     5 |
+| 104 | RUBBER          |     3 |
+| 105 | SCALE           |     4 |
+| 106 | SKETCH          |    20 |
+| 110 | Rice            |    60 |
++-----+-----------------+-------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT*FROM Invoice1_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|  98666 |  104 |      120 |
+|  98765 |  102 |      620 |
+|  98626 |  100 |       50 |
+|   6220 |  100 |       60 |
+|   6290 |  101 |       60 |
+|  98636 |  105 |       20 |
+|  98766 |  103 |       84 |
+|  98666 |  106 |      620 |
+|  98776 |  101 |      650 |
+|  98786 |  105 |      650 |
+|  98636 |  105 |       20 |
+|  98636 |  105 |       10 |
+|  98786 |  102 |       10 |
+|  98765 |  101 |       70 |
++--------+------+----------+
+14 rows in set (0.00 sec)
+
+mysql> SELECT*FROM Invoice1_master;
++--------+---------+------------+
+| inv_id | cust_id | inv_date   |
++--------+---------+------------+
+|   1729 |     100 | 2023-04-21 |
+|  65325 |     100 | 2023-06-15 |
+|  65365 |     100 | 2023-06-25 |
+|  65425 |     100 | 2023-01-15 |
+|  65656 |     100 | 2023-05-25 |
+|  98636 |   10006 | 2023-03-24 |
+|  98666 |   10003 | 2023-03-25 |
+|  98686 |   10004 | 2023-03-29 |
+|  98765 |   10001 | 2023-03-22 |
+|  98766 |   10005 | 2023-03-23 |
+|  98776 |   10005 | 2023-03-20 |
+|  98786 |   10009 | 2023-03-29 |
+| 630205 |     100 | 2023-02-10 |
+| 630625 |     100 | 2023-02-02 |
+| 653205 |     100 | 2023-01-10 |
+| 653225 |     100 | 2023-01-14 |
++--------+---------+------------+
+16 rows in set (0.00 sec)
+------------------------------------------------------------------------------------------------------------------------------------
+1.    List the customer names of invoice date 24th March 2023.
+
+A)
+
+mysql> select * from CUSTOMER where id in (select cust_id  from Invoice1_master where inv_date='2023-03-24');
++-------+-----------+--------------+-------------+-----------+
+| id    | Name      | Address      | City        | Ph_no     |
++-------+-----------+--------------+-------------+-----------+
+| 10006 | Raj kumar | Irangalakuda | Alazhapuzha | 912559450 |
++-------+-----------+--------------+-------------+-----------+
+1 row in set (0.00 sec)
+***************************************************************************************************************************************
+2.    List the product name and price of each invoice item.
+
+A)
+
+mysql> select pName,Price from PRODUCT where pid in(select pid from Invoice1_item);
++-----------------+-------+
+| pName           | Price |
++-----------------+-------+
+| DARK CHOCALATE  |   173 |
+| WHITE CHOCALATE |   102 |
+| PEN             |     5 |
+| PENCIL          |     5 |
+| RUBBER          |     3 |
+| SCALE           |     4 |
+| SKETCH          |    20 |
++-----------------+-------+
+7 rows in set (0.01 sec)
+***************************************************************************************************************************************
+3.    List the product names, only include their purchased quantity more than 5.
+
+A)
+
+mysql> select pName from PRODUCT where pid in(select pid from Invoice1_item where quantity>5);
++-----------------+
+| pName           |
++-----------------+
+| DARK CHOCALATE  |
+| WHITE CHOCALATE |
+| PEN             |
+| PENCIL          |
+| RUBBER          |
+| SCALE           |
+| SKETCH          |
++-----------------+
+7 rows in set (0.00 sec)
+***************************************************************************************************************************************
+4.    Find the product that has no sale.
+
+A)
+
+mysql> select * from PRODUCT where pid not in(select pid from Invoice1_item);
++-----+-------+-------+
+| pid | pName | Price |
++-----+-------+-------+
+| 110 | Rice  |    60 |
++-----+-------+-------+
+1 row in set (0.33 sec)
+***************************************************************************************************************************************
+5.    List the customer names who purchased the items ‘pen’ and ‘pencil’.
+
+A)
+
+mysql> select name from CUSTOMER where id in (SELECT cust_id FROM Invoice1_master where INV_ID IN (select inv_id from Invoice1_item where pid in(select pid from PRODUCT where pName="Pen" OR pName="Pencil")));
++-----------+
+| name      |
++-----------+
+| Ram kumar |
+| Vishak    |
++-----------+
+2 rows in set (0.15 sec)
+
+***************************************************************************************************************************************
+6.    Display the purchased product details of the customer ’NAME’.
+
+A)
+
+mysql> select pName from PRODUCT where pid in(select pid from Invoice1_item where inv_id in(select inv_id from Invoice1_master where cust_id in(select id from CUSTOMER where Name="Vishak")));
++-------+
+| pName |
++-------+
+| SCALE |
+| PEN   |
++-------+
+2 rows in set (0.00 sec)
+***************************************************************************************************************************************
+7.    List the names of all customers who have purchased at least 2 products, make sure that no duplicate names in the result.
+
+A)
+
+mysql> select distinct Name from CUSTOMER where id in(select cust_id from Invoice1_master where inv_id in(select inv_id from Invoice1_item group by inv_id having count(*)>2));
++-----------+
+| Name      |
++-----------+
+| Raj kumar |
++-----------+
+1 row in set (0.00 sec)
+***************************************************************************************************************************************
