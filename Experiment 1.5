@@ -167,11 +167,13 @@ mysql> select pName from PRODUCT where pid in(select pid from Invoice1_item wher
 
 A)
 
-mysql> select distinct Name from CUSTOMER where id in(select cust_id from Invoice1_master where inv_id in(select inv_id from Invoice1_item group by inv_id having count(*)>2)); //WRONG QUERY
+mysql> select Name from CUSTOMER where id in(select cust_id from Invoice1_master where inv_id in(select inv_id from Invoice1_item group by inv_id having count(inv_id)>=2));
 +-----------+
 | Name      |
 +-----------+
+| Gokul     |
 | Raj kumar |
+| Vishak    |
 +-----------+
-1 row in set (0.00 sec)
+3 rows in set (0.00 sec)
 ***************************************************************************************************************************************
