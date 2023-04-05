@@ -1,0 +1,62 @@
+EXPERIMENT NO: 1.6 ACCESSING DATABASES: (VIEWS)
+RESMI S R
+***************************************************************************************************************************************
+1. Create a view for customers who have purchased products.
+
+A)
+
+mysql> CREATE VIEW CP AS SELECT * FROM CUSTOMER WHERE id IN(SELECT cust_id FROM Invoice1_master);
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> SELECT * FROM CP;
++-------+-----------+----------------+-------------+-----------+
+| id    | Name      | Address        | City        | Ph_no     |
++-------+-----------+----------------+-------------+-----------+
+| 10003 | Gokul     | Mandhavaadi    | Calicut     |  81698067 |
+| 10004 | kumar     | kakkanadu      | Kochi       | 818037925 |
+| 10005 | Ram kumar | Iritti         | Kannur      | 731069450 |
+| 10006 | Raj kumar | Irangalakuda   | Alazhapuzha | 912559450 |
+| 10009 | Vishak    | Haritham villa | CALICUT     | 956321485 |
++-------+-----------+----------------+-------------+-----------+
+5 rows in set (0.00 sec)
+***************************************************************************************************************************************
+2. Create a view for invoice products[cust_name, , inv_id, product_id, quantity]
+
+A)
+
+mysql> CREATE VIEW INVOICE_PRODUCT AS SELECT CUSTOMER.Name,Invoice1_master.inv_id,PRODUCT.pid,Invoice1_item.QUANTITY FROM CUSTOMER INNER JOIN Invoice1_master ON CUSTOMER.id=Invoice1_master.cust_id INNER JOIN Invoice1_item ON Invoice1_master.inv_id=Invoice1_item.inv_id INNER JOIN PRODUCT ON PRODUCT.pid=Invoice1_item.pid;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> CREATE VIEW cust_PROD AS SELECT CUSTOMER.Name,PRODUCT.pid,Invoice1_item.QUANTITY FROM CUSTOMER INNER JOIN Invoice1_master ON CUSTOMER.id=Invoice1_master.cust_id INNER JOIN Invoice1_item ON Invoice1_master.inv_id=Invoice1_item.inv_id INNER JOIN PRODUCT ON PRODUCT.pid=Invoice1_item.pid;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> SHOW TABLES;
++--------------------+
+| Tables_in_INVOICE1 |
++--------------------+
+| CP                 |
+| CUSTOMER           |
+| INVOICE_PRODUCT    |
+| Invoice1_item      |
+| Invoice1_master    |
+| PRODUCT            |
+| cust_PROD          |
++--------------------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT * FROM cust_PROD;
++-----------+-----+----------+
+| Name      | pid | QUANTITY |
++-----------+-----+----------+
+| Gokul     | 104 |      120 |
+| Raj kumar | 105 |       20 |
+| Ram kumar | 103 |       84 |
+| Gokul     | 106 |      620 |
+| Ram kumar | 101 |      650 |
+| Vishak    | 105 |      650 |
+| Raj kumar | 105 |       20 |
+| Raj kumar | 105 |       10 |
+| Vishak    | 102 |       10 |
++-----------+-----+----------+
+9 rows in set (0.00 sec)
+***************************************************************************************************************************************
