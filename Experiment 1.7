@@ -5,11 +5,11 @@ RESMI S R
 •
 Mar 29
 ******************************************************************************************************************************************
-1.    List product name, price except soap on price order.
+1.    List product name, price except pen on price order.
 
 A)
 
-mysql> select pName,Price from PRODUCT where pName!='PEN' order by Price ASC; //WRONG QUERY
+mysql> select pName,Price from PRODUCT where pName!='PEN' order by Price ASC;
 +-----------------+-------+
 | pName           | Price |
 +-----------------+-------+
@@ -84,5 +84,3 @@ mysql> SELECT CONCAT(NAME, " lives in ", CITY) AS CUST_INFO FROM CUSTOMER;
 +--------------------------------+
 9 rows in set (0.00 sec)
 ******************************************************************************************************************************************
-
-//WRONG QUERY, RESUBMIT
