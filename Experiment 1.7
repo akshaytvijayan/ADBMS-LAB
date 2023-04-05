@@ -1,0 +1,86 @@
+ADBMS & ADBMS LAB2022 BATCH
+Assignment details
+EXPERIMENT NO: 1.7 OPTIMIZING DATABASE:  (GROUP BY, AGGREGATE FUNCTIONS)
+RESMI S R
+•
+Mar 29
+******************************************************************************************************************************************
+1.    List product name, price except soap on price order.
+
+A)
+
+mysql> select pName,Price from PRODUCT where pName!='PEN' order by Price ASC;
++-----------------+-------+
+| pName           | Price |
++-----------------+-------+
+| RUBBER          |     3 |
+| SCALE           |     4 |
+| PENCIL          |     5 |
+| SKETCH          |    20 |
+| Rice            |    60 |
+| WHITE CHOCALATE |   102 |
+| DARK CHOCALATE  |   173 |
++-----------------+-------+
+7 rows in set (0.00 sec)
+******************************************************************************************************************************************
+2.    Find minimum, maximum and average price of products.
+
+A)
+
+mysql> SELECT MIN(Price),MAX(Price),AVG(Price) FROM PRODUCT;
++------------+------------+------------+
+| MIN(Price) | MAX(Price) | AVG(Price) |
++------------+------------+------------+
+|          3 |        173 |    46.5000 |
++------------+------------+------------+
+1 row in set (0.00 sec)
+******************************************************************************************************************************************
+3.     Find number of customers in each city.
+
+A)
+
+mysql> SELECT COUNT(*),CITY FROM CUSTOMER GROUP BY CITY;
++----------+-------------+
+| COUNT(*) | CITY        |
++----------+-------------+
+|        1 | Alazhapuzha |
+|        4 | Calicut     |
+|        1 | Kalpatta    |
+|        1 | Kannur      |
+|        1 | Kochi       |
+|        1 | Trivandram  |
++----------+-------------+
+6 rows in set (0.00 sec)
+******************************************************************************************************************************************
+4.    Find number of customers in each city, only include city with more than 3 customers.
+
+A)
+
+mysql>  SELECT COUNT(*),CITY FROM CUSTOMER GROUP BY CITY HAVING COUNT(*)>3;
++----------+---------+
+| COUNT(*) | CITY    |
++----------+---------+
+|        4 | Calicut |
++----------+---------+
+1 row in set (0.00 sec)
+******************************************************************************************************************************************
+5.    Show data as displayed ‘who, where’ Eg: ‘customer1 lives in ekm’.
+
+A)
+
+mysql> SELECT CONCAT(NAME, " lives in ", CITY) AS CUST_INFO FROM CUSTOMER;
++--------------------------------+
+| CUST_INFO                      |
++--------------------------------+
+| Eswaran lives in Trivandram    |
+| Gokul lives in Calicut         |
+| kumar lives in Kochi           |
+| Ram kumar lives in Kannur      |
+| Raj kumar lives in Alazhapuzha |
+| Vijay kumar lives in Kalpatta  |
+| Vishak lives in CALICUT        |
+| Madhav lives in Calicut        |
+| Ishi Madhav lives in Calicut   |
++--------------------------------+
+9 rows in set (0.00 sec)
+******************************************************************************************************************************************
