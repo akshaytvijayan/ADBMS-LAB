@@ -1,0 +1,157 @@
+ADBMS & ADBMS LAB2022 BATCH
+EXPERIMENT NO: 1.8 OPTIMIZING DATABASE: (JOINS)
+RESMI S R
+•
+Mar 30
+******************************************************************************************************************************************
+mysql> SELECT*FROM PRODUCT;
++-----+-----------------+-------+
+| pid | pName           | Price |
++-----+-----------------+-------+
+| 100 | DARK CHOCALATE  |   173 |
+| 101 | WHITE CHOCALATE |   102 |
+| 102 | PEN             |     5 |
+| 103 | PENCIL          |     5 |
+| 104 | RUBBER          |     3 |
+| 105 | SCALE           |     4 |
+| 106 | SKETCH          |    20 |
+| 110 | Rice            |    60 |
++-----+-----------------+-------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT*FROM CUSTOMER;
++-------+-------------+----------------+-------------+-----------+
+| id    | Name        | Address        | City        | Ph_no     |
++-------+-------------+----------------+-------------+-----------+
+| 10002 | Eswaran     | Manarassala    | Trivandram  | 964259130 |
+| 10003 | Gokul       | Mandhavaadi    | Calicut     |  81698067 |
+| 10004 | kumar       | kakkanadu      | Kochi       | 818037925 |
+| 10005 | Ram kumar   | Iritti         | Kannur      | 731069450 |
+| 10006 | Raj kumar   | Irangalakuda   | Alazhapuzha | 912559450 |
+| 10007 | Vijay kumar | Waynad         | Kalpatta    | 605034891 |
+| 10009 | Vishak      | Haritham villa | CALICUT     | 956321485 |
+| 10010 | Madhav      | pullikalhouse  | Calicut     |      NULL |
+| 11010 | Ishi Madhav | kalhouse       | Calicut     |      NULL |
++-------+-------------+----------------+-------------+-----------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT*FROM Invoice1_item;
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|  98666 |  104 |      120 |
+|  98765 |  102 |      620 |
+|  98626 |  100 |       50 |
+|   6220 |  100 |       60 |
+|   6290 |  101 |       60 |
+|  98636 |  105 |       20 |
+|  98766 |  103 |       84 |
+|  98666 |  106 |      620 |
+|  98776 |  101 |      650 |
+|  98786 |  105 |      650 |
+|  98636 |  105 |       20 |
+|  98636 |  105 |       10 |
+|  98786 |  102 |       10 |
+|  98765 |  101 |       70 |
++--------+------+----------+
+14 rows in set (0.00 sec)
+
+mysql> SELECT*FROM Invoice1_master;
++--------+---------+------------+
+| inv_id | cust_id | inv_date   |
++--------+---------+------------+
+|   1729 |     100 | 2023-04-21 |
+|  65325 |     100 | 2023-06-15 |
+|  65365 |     100 | 2023-06-25 |
+|  65425 |     100 | 2023-01-15 |
+|  65656 |     100 | 2023-05-25 |
+|  98636 |   10006 | 2023-03-24 |
+|  98666 |   10003 | 2023-03-25 |
+|  98686 |   10004 | 2023-03-29 |
+|  98765 |   10001 | 2023-03-22 |
+|  98766 |   10005 | 2023-03-23 |
+|  98776 |   10005 | 2023-03-20 |
+|  98786 |   10009 | 2023-03-29 |
+| 630205 |     100 | 2023-02-10 |
+| 630625 |     100 | 2023-02-02 |
+| 653205 |     100 | 2023-01-10 |
+| 653225 |     100 | 2023-01-14 |
++--------+---------+------------+
+16 rows in set (0.00 sec)
+------------------------------------------------------------------------------------------------------------------------------------------
+1.     List the product name and quantity of invoice items.
+
+A)
+
+mysql> select PRODUCT.pName,Invoice1_item.QUANTITY from PRODUCT inner join Invoice1_item on PRODUCT.pid=Invoice1_item.pid;
++-----------------+----------+
+| pName           | QUANTITY |
++-----------------+----------+
+| RUBBER          |      120 |
+| PEN             |      620 |
+| DARK CHOCALATE  |       50 |
+| DARK CHOCALATE  |       60 |
+| WHITE CHOCALATE |       60 |
+| SCALE           |       20 |
+| PENCIL          |       84 |
+| SKETCH          |      620 |
+| WHITE CHOCALATE |      650 |
+| SCALE           |      650 |
+| SCALE           |       20 |
+| SCALE           |       10 |
+| PEN             |       10 |
+| WHITE CHOCALATE |       70 |
++-----------------+----------+
+14 rows in set (0.00 sec)
+******************************************************************************************************************************************
+2.    Display invoice details of the transaction dated ’2023-03-29’.
+
+A)
+
+mysql> select Invoice1_master.inv_date,Invoice1_master.cust_id,CUSTOMER.Name,Invoice1_item.pid,PRODUCT.pName,Invoice1_item.QUANTITY from Invoice1_master inner join Invoice1_item on Invoice1_master.inv_id=Invoice1_item.inv_id inner join PRODUCT on PRODUCT.pid=Invoice1_item.pid inner join CUSTOMER on CUSTOMER.id=Invoice1_master.cust_id where inv_date='2023-03-29';
++------------+---------+--------+------+-------+----------+
+| inv_date   | cust_id | Name   | pid  | pName | QUANTITY |
++------------+---------+--------+------+-------+----------+
+| 2023-03-29 |   10009 | Vishak |  105 | SCALE |      650 |
+| 2023-03-29 |   10009 | Vishak |  102 | PEN   |       10 |
++------------+---------+--------+------+-------+----------+
+2 rows in set (0.04 sec)
+
+******************************************************************************************************************************************
+3.    Display the customer name, product name, invoice date of purchased item ‘pen’.
+
+A)
+
+mysql> SELECT CUSTOMER.Name,PRODUCT.pName,Invoice1_master.inv_date FROM CUSTOMER INNER JOIN Invoice1_master ON CUSTOMER.id=Invoice1_master.cust_id INNER JOIN Invoice1_item ON Invoice1_master.inv_id=Invoice1_item.inv_id INNER JOIN PRODUCT ON Invoice1_item.pid=PRODUCT.pid WHERE pName="Pen";
++--------+-------+------------+
+| Name   | pName | inv_date   |
++--------+-------+------------+
+| Vishak | PEN   | 2023-03-29 |
++--------+-------+------------+
+1 row in set (0.00 
+******************************************************************************************************************************************
+4.    Display all customer details and invoice details must include customer has not purchased items.
+
+A)
+
+mysql> SELECT Name,Invoice1_master.inv_id,Invoice1_master.inv_date,PRODUCT.pName FROM CUSTOMER LEFT JOIN Invoice1_master ON CUSTOMER.Id=Invoice1_master.cust_id LEFT JOIN Invoice1_item ON Invoice1_master.inv_id=Invoice1_item.inv_id LEFT JOIN PRODUCT ON PRODUCT.pid=Invoice1_item.pid;
++-------------+--------+------------+-----------------+
+| Name        | inv_id | inv_date   | pName           |
++-------------+--------+------------+-----------------+
+| Gokul       |  98666 | 2023-03-25 | RUBBER          |
+| Raj kumar   |  98636 | 2023-03-24 | SCALE           |
+| Ram kumar   |  98766 | 2023-03-23 | PENCIL          |
+| Gokul       |  98666 | 2023-03-25 | SKETCH          |
+| Ram kumar   |  98776 | 2023-03-20 | WHITE CHOCALATE |
+| Vishak      |  98786 | 2023-03-29 | SCALE           |
+| Raj kumar   |  98636 | 2023-03-24 | SCALE           |
+| Raj kumar   |  98636 | 2023-03-24 | SCALE           |
+| Vishak      |  98786 | 2023-03-29 | PEN             |
+| kumar       |  98686 | 2023-03-29 | NULL            |
+| Eswaran     |   NULL | NULL       | NULL            |
+| Vijay kumar |   NULL | NULL       | NULL            |
+| Madhav      |   NULL | NULL       | NULL            |
+| Ishi Madhav |   NULL | NULL       | NULL            |
++-------------+--------+------------+-----------------+
+14 rows in set (0.25 sec)
+******************************************************************************************************************************************
