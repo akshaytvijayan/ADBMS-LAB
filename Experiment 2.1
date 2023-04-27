@@ -1,0 +1,144 @@
+ADBMS & ADBMS LAB2022 BATCH
+Assignment details
+EXPERIMENT NO: 2.1	- PL/SQL PROGRAMS- STORED PROCEDURES 
+Apr 12
+**********************************************************************************************************************************
+1.      Create a procedure to display all tables in the invoice database.
+
+A)
+
+mysql> CREATE PROCEDURE ALLINVOICE() 
+BEGIN
+SELECT * FROM CUSTOMER;
+SELECT * FROM Invoice1_item; 
+SELECT * FROM Invoice1_master; 
+SELECT * FROM PRODUCT; 
+END
+//
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call ALLINVOICE() //
++-------+-------------+----------------+-------------+-----------+
+| id    | Name        | Address        | City        | Ph_no     |
++-------+-------------+----------------+-------------+-----------+
+| 10002 | Eswaran     | Manarassala    | Trivandram  | 964259130 |
+| 10003 | Gokul       | Mandhavaadi    | Calicut     |  81698067 |
+| 10004 | kumar       | kakkanadu      | Kochi       | 818037925 |
+| 10005 | Ram kumar   | Iritti         | Kannur      | 731069450 |
+| 10006 | Raj kumar   | Irangalakuda   | Alazhapuzha | 912559450 |
+| 10007 | Vijay kumar | Waynad         | Kalpatta    | 605034891 |
+| 10009 | Vishak      | Haritham villa | CALICUT     | 956321485 |
+| 10010 | Madhav      | pullikalhouse  | Calicut     |      NULL |    
+| 11010 | Ishi Madhav | kalhouse       | Calicut     |      NULL |
++-------+-------------+----------------+-------------+-----------+
+9 rows in set (0.00 sec)
+
++--------+------+----------+
+| inv_id | pid  | quantity |
++--------+------+----------+
+|  98666 |  104 |      120 |
+|  98765 |  102 |      620 |
+|  98626 |  100 |       50 |
+|   6220 |  100 |       60 |
+|   6290 |  101 |       60 |
+|  98636 |  105 |       20 |
+|  98766 |  103 |       84 |
+|  98666 |  106 |      620 |
+|  98776 |  101 |      650 |
+|  98786 |  105 |      650 |
+|  98636 |  105 |       20 |
+|  98636 |  105 |       10 |
+|  98786 |  102 |       10 |
+|  98765 |  101 |       70 |
++--------+------+----------+
+14 rows in set (0.00 sec)
+
++--------+---------+------------+
+| inv_id | cust_id | inv_date   |
++--------+---------+------------+
+|   1729 |     100 | 2023-04-21 |
+|  65325 |     100 | 2023-06-15 |
+|  65365 |     100 | 2023-06-25 |
+|  65425 |     100 | 2023-01-15 |
+|  65656 |     100 | 2023-05-25 |
+|  98636 |   10006 | 2023-03-24 |
+|  98666 |   10003 | 2023-03-25 |
+|  98686 |   10004 | 2023-03-29 |
+|  98765 |   10001 | 2023-03-22 |
+|  98766 |   10005 | 2023-03-23 |
+|  98776 |   10005 | 2023-03-20 |
+|  98786 |   10009 | 2023-03-29 |
+| 630205 |     100 | 2023-02-10 |
+| 630625 |     100 | 2023-02-02 |
+| 653205 |     100 | 2023-01-10 |
+| 653225 |     100 | 2023-01-14 |
++--------+---------+------------+
+16 rows in set (0.00 sec)
+
++-----+-----------------+-------+
+| pid | pName           | Price |
++-----+-----------------+-------+
+| 100 | DARK CHOCALATE  |   178 |
+| 101 | WHITE CHOCALATE |   107 |
+| 102 | PEN             |    10 |
+| 103 | PENCIL          |    10 |
+| 104 | RUBBER          |     8 |
+| 105 | SCALE           |     9 |
+| 106 | SKETCH          |    25 |
+| 110 | Rice            |    65 |
++-----+-----------------+-------+
+8 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+**********************************************************************************************************************************
+2.      Create a procedure to find greatest of 3 numbers.
+
+A)
+
+mysql> create procedure greatest(a int, b int , c int)
+    -> Begin
+    -> If (a>b) AND (a>c) then
+    -> Select a as 'greater';
+    -> Elseif (b>c)  AND (b>a) then
+    -> Select b as 'greater';
+    -> Else
+    -> Select c as 'greater';
+    -> End if;
+    -> END
+    ->  //
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> call greatest(10,20,30) //
++---------+
+| greater |
++---------+
+|      30 |
++---------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+**********************************************************************************************************************************
+3.      Create a procedure to display invoice details of a particular customer.
+
+A)
+
+mysql> delimiter //
+
+mysql> CREATE PROCEDURE CUSTP(N varchar(30)) BEGIN SELECT CUSTOMER.Name,Invoice1_master.*,PRODUCT.pName,Invoice1_item.pid,Invoice1_item.QUANTITY FROM Invoice1_item INNER JOIN Invoice1_master ON Invoice1_master.inv_id=Invoice1_item.inv_id INNER JOIN PRODUCT ON PRODUCT.pid=Invoice1_item.pid INNER JOIN CUSTOMER ON CUSTOMER.id=Invoice1_master.cust_id WHERE CUSTOMER.NAME=N;
+    ->END //
+
+Query OK, 0 rows affected (0.08 sec)
+
+mysql>  CALL CUSTP('Gokul'); 
+    -> //
++-------+--------+---------+------------+--------+------+----------+
+| Name  | inv_id | cust_id | inv_date   | pName  | pid  | QUANTITY |
++-------+--------+---------+------------+--------+------+----------+
+| Gokul |  98666 |   10003 | 2023-03-25 | RUBBER |  104 |      120 |
+| Gokul |  98666 |   10003 | 2023-03-25 | SKETCH |  106 |      620 |
++-------+--------+---------+------------+--------+------+----------+
+2 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+**********************************************************************************************************************************
