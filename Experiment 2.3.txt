@@ -1,0 +1,121 @@
+ADBMS & ADBMS LAB2022 BATCH
+EXPERIMENT NO: 2.3 -PL/SQL PROGRAMS – TRIGGER
+RESMI S R
+•
+********************************************************************************************************************************************
+1. Create a trigger to handle updates to the customer table.
+
+A)
+
+mysql> delimiter //
+mysql> create table cust(id int,name varchar(25),address varchar(25),city varchar(25),ph_no bigint);//
+Query OK, 0 rows affected (0.50 sec)
+
+mysql>  create trigger updates
+    ->     -> before update
+    ->     -> on CUSTOMER for each row
+    ->     -> begin
+    ->     -> insert into cust
+    ->     -> values(old.id,old.name,old.address,old.city,old.ph_no);
+    ->     -> end
+    -> //
+Query OK, 0 rows affected (0.51 sec)
+
+mysql> select * from CUSTOMER;
+    -> //
++-------+-------------+----------------+-------------+-----------+
+| id    | Name        | Address        | City        | Ph_no     |
++-------+-------------+----------------+-------------+-----------+
+| 10002 | Eswaran     | Manarassala    | Trivandram  | 964259130 |
+| 10003 | Gokul       | Mandhavaadi    | Calicut     |  81698067 |
+| 10004 | kumar       | kakkanadu      | Kochi       | 818037925 |
+| 10005 | Ram kumar   | Iritti         | Kannur      | 731069450 |
+| 10006 | Raj kumar   | Irangalakuda   | Alazhapuzha | 912559450 |
+| 10007 | Vijay kumar | Waynad         | Kalpatta    | 605034891 |
+| 10009 | Vishak      | Haritham villa | CALICUT     | 956321485 |
+| 10010 | Madhav      | pullikalhouse  | Calicut     |      NULL |
+| 11010 | Ishi Madhav | kalhouse       | Calicut     |      NULL |
++-------+-------------+----------------+-------------+-----------+
+9 rows in set (0.00 sec)
+
+mysql> update CUSTOMER set City="kozhikode" where id=10010;
+    -> //
+Query OK, 1 row affected (0.45 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from cust;
+    -> //
++-------+--------+---------------+---------+-------+
+| id    | name   | address       | city    | ph_no |
++-------+--------+---------------+---------+-------+
+| 10010 | Madhav | pullikalhouse | Calicut |  NULL |
++-------+--------+---------------+---------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from CUSTOMER;//
++-------+-------------+----------------+-------------+-----------+
+| id    | Name        | Address        | City        | Ph_no     |
++-------+-------------+----------------+-------------+-----------+
+| 10002 | Eswaran     | Manarassala    | Trivandram  | 964259130 |
+| 10003 | Gokul       | Mandhavaadi    | Calicut     |  81698067 |
+| 10004 | kumar       | kakkanadu      | Kochi       | 818037925 |
+| 10005 | Ram kumar   | Iritti         | Kannur      | 731069450 |
+| 10006 | Raj kumar   | Irangalakuda   | Alazhapuzha | 912559450 |
+| 10007 | Vijay kumar | Waynad         | Kalpatta    | 605034891 |
+| 10009 | Vishak      | Haritham villa | CALICUT     | 956321485 |
+| 10010 | Madhav      | pullikalhouse  | kozhikode   |      NULL |
+| 11010 | Ishi Madhav | kalhouse       | Calicut     |      NULL |
++-------+-------------+----------------+-------------+-----------+
+9 rows in set (0.00 sec)
+********************************************************************************************************************************************
+2. Create a trigger to handle inserts to the product relation ( if price < 5 the set price to 10).
+
+A)
+
+mysql> create trigger PRODUCT_Price
+    -> before insert
+    -> on PRODUCT
+    -> for each row
+    -> begin
+    -> if new.price < 5 then
+    -> set new.price=10;
+    -> end if;
+    -> end//
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> select * from PRODUCT;//
++-----+-----------------+-------+
+| pid | pName           | Price |
++-----+-----------------+-------+
+| 100 | DARK CHOCALATE  |   178 |
+| 101 | WHITE CHOCALATE |   107 |
+| 102 | PEN             |    10 |
+| 103 | PENCIL          |    10 |
+| 104 | RUBBER          |     8 |
+| 105 | SCALE           |     9 |
+| 106 | SKETCH          |    25 |
+| 110 | Rice            |    65 |
++-----+-----------------+-------+
+8 rows in set (0.00 sec)
+
+mysql> insert into PRODUCT values(420,'carrot',3);
+    -> //
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from PRODUCT;
+    -> //
++-----+-----------------+-------+
+| pid | pName           | Price |
++-----+-----------------+-------+
+| 100 | DARK CHOCALATE  |   178 |
+| 101 | WHITE CHOCALATE |   107 |
+| 102 | PEN             |    10 |
+| 103 | PENCIL          |    10 |
+| 104 | RUBBER          |     8 |
+| 105 | SCALE           |     9 |
+| 106 | SKETCH          |    25 |
+| 110 | Rice            |    65 |
+| 420 | carrot          |    10 |
++-----+-----------------+-------+
+9 rows in set (0.00 sec)
+********************************************************************************************************************************************
