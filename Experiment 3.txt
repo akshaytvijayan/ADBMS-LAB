@@ -1,0 +1,117 @@
+ADBMS & ADBMS LAB2022 BATCH
+Assignment 3: NoSQL-CRUD
+RESMI S R
+**********************************************************************************************************************************
+1.      Write a MongoDB query to create an INVOICE database and collections (CUSTOMER, PRODUCT) and its corresponding documents.
+
+A)
+> use invoice
+switched to db invoice
+
+> db.createCollection("CUSTOMER")
+{ "ok" : 1 }
+
+> show collections
+CUSTOMER
+
+> db.CUSTOMER.insert({cid:"1000",name:"Akshay",age:"24",mob:"9072402692",address:"kakkodi",city:"Kozhikode",state:"Kerala"})
+WriteResult({ "nInserted" : 1 })
+
+> db.CUSTOMER.insert({cust_id:"1002",name:"Akasha",age:"24",mob:"9895215592",address:"kakkanad",city:"Kannur",state:"Kerala"}) 
+WriteResult({ "nInserted" : 1 })
+
+> db.CUSTOMER.insertMany([{cust_id:"1001",name:"Minhaj",age:"24",mob:"8895215592",address:"Munnar",city:"Malappuram",state:"Kerala"},{cust_id:"1003",name:"Vishnu",age:"22",mob:"7895215592",address:"Alleppey",city:"Calicut",state:"Kerala"},{cust_id:"1004",name:"Maanas",age:"22",mob:"6895215592",address:"Mannarkkad",city:"Kochi",state:"Kerala"},{cust_id:"1005",name:"Mishub",age:"21",mob:"5895215592",address:"Ramanattukara",city:"Calicut",state:"Kerala"},{cust_id:"1006",name:"Divya",age:"21",mob:"4895215592",address:"Vengeri",city:"Kochi",state:"Kerala"},{cust_id:"1007",name:"Neenu",age:"20",mob:"3895215592",address:"Karaparambu",city:"Palakkad",state:"Kerala"},{cust_id:"1008",name:"Amirtha",age:"21",mob:"1895215592",address:"Kakkodi",city:"Trivandram",state:"Kerala"}])
+{
+	"acknowledged" : true,
+	"insertedIds" : [
+		ObjectId("64817c9c413f3b0c670b517c"),
+		ObjectId("64817c9c413f3b0c670b517d"),
+		ObjectId("64817c9c413f3b0c670b517e"),
+		ObjectId("64817c9c413f3b0c670b517f"),
+		ObjectId("64817c9c413f3b0c670b5180"),
+		ObjectId("64817c9c413f3b0c670b5181"),
+		ObjectId("64817c9c413f3b0c670b5182")
+	]
+}
+
+> db.createCollection("PRODUCT")
+{ "ok" : 1 }
+
+> show collections
+PRODUCT
+
+> db.PRODUCT.insertMany([{Pid:"100",Pname:"Pen",Price:"5"},{Pid:"101",Pname:"Pencil",Price:"3"},{Pid:"102",Pname:"Sketch",Price:"50"},{Pid:"103",Pname:"Rice",Price:"85"},{Pid:"104",Pname:"Shirt",Price:"500"},{Pid:"105",Pname:"Pant",Price:"655"},{Pid:"106",Pname:"Rubber",Price:"6"},{Pid:"107",Pname:"Scale",Price:"15"}]) 
+{
+	"acknowledged" : true,
+	"insertedIds" : [
+		ObjectId("64818095413f3b0c670b5183"),
+		ObjectId("64818095413f3b0c670b5184"),
+		ObjectId("64818095413f3b0c670b5185"),
+		ObjectId("64818095413f3b0c670b5186"),
+		ObjectId("64818095413f3b0c670b5187"),
+		ObjectId("64818095413f3b0c670b5188"),
+		ObjectId("64818095413f3b0c670b5189"),
+		ObjectId("64818095413f3b0c670b518a")
+	]
+}
+**********************************************************************************************************************************
+2.      Write a MongoDB query to find all documents from the collection CUSTOMER
+
+A)
+> db.CUSTOMER.find()
+{ "_id" : ObjectId("648178f7413f3b0c670b517a"), "cid" : "1000", "name" : "Akshay", "age" : "24", "mob" : "9072402692", "address" : "kakkodi", "city" : "Kozhikode", "state" : "Kerala" }
+
+{ "_id" : ObjectId("64817945413f3b0c670b517b"), "cust_id" : "1002", "name" : "Akasha", "age" : "24", "mob" : "9895215592", "address" : "kakkanad", "city" : "Kannur", "state" : "Kerala" }
+
+{ "_id" : ObjectId("64817c9c413f3b0c670b517c"), "cust_id" : "1001", "name" : "Minhaj", "age" : "24", "mob" : "8895215592", "address" : "Munnar", "city" : "Malappuram", "state" : "Kerala" }
+
+{ "_id" : ObjectId("64817c9c413f3b0c670b517d"), "cust_id" : "1003", "name" : "Vishnu", "age" : "22", "mob" : "7895215592", "address" : "Alleppey", "city" : "Calicut", "state" : "Kerala" }
+
+{ "_id" : ObjectId("64817c9c413f3b0c670b517e"), "cust_id" : "1004", "name" : "Maanas", "age" : "22", "mob" : "6895215592", "address" : "Mannarkkad", "city" : "Kochi", "state" : "Kerala" }
+
+{ "_id" : ObjectId("64817c9c413f3b0c670b517f"), "cust_id" : "1005", "name" : "Mishub", "age" : "21", "mob" : "5895215592", "address" : "Ramanattukara", "city" : "Calicut", "state" : "Kerala" }
+
+{ "_id" : ObjectId("64817c9c413f3b0c670b5180"), "cust_id" : "1006", "name" : "Divya", "age" : "21", "mob" : "4895215592", "address" : "Vengeri", "city" : "Kochi", "state" : "Kerala" }
+
+{ "_id" : ObjectId("64817c9c413f3b0c670b5181"), "cust_id" : "1007", "name" : "Neenu", "age" : "20", "mob" : "3895215592", "address" : "Karaparambu", "city" : "Palakkad", "state" : "Kerala" }
+
+{ "_id" : ObjectId("64817c9c413f3b0c670b5182"), "cust_id" : "1008", "name" : "Amirtha", "age" : "21", "mob" : "1895215592", "address" : "Kakkodi", "city" : "Trivandram", "state" : "Kerala" }
+> 
+
+**********************************************************************************************************************************
+3.      Write a MongoDB query to update the city in the collection CUSTOMER.
+
+A)
+
+> db.CUSTOMER.update({"city":"Kochi"},{$set:{"city":"Ernakulam"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+
+> db.CUSTOMER.find()
+
+{ "_id" : ObjectId("64817c9c413f3b0c670b517e"), "cust_id" : "1004", "name" : "Maanas", "age" : "22", "mob" : "6895215592", "address" : "Mannarkkad", "city" : "Ernakulam", "state" : "Kerala" }
+
+{ "_id" : ObjectId("64817c9c413f3b0c670b5180"), "cust_id" : "1006", "name" : "Divya", "age" : "21", "mob" : "4895215592", "address" : "Vengeri", "city" : "Ernakulam", "state" : "Kerala" }
+
+**********************************************************************************************************************************
+4.      Write a MongoDB query to delete the first matched document whose city is “Calicut”.
+
+A)
+> db.CUSTOMER.deleteOne({"city":"Malappuram"})
+{ "acknowledged" : true, "deletedCount" : 1 }
+
+> db.CUSTOMER.find()
+
+{ "_id" : ObjectId("64817c9c413f3b0c670b517c"), "cust_id" : "1001", "name" : "Minhaj", "age" : "24", "mob" : "8895215592", "address" : "Munnar", "city" : "Malappuram", "state" : "Kerala" }
+**********************************************************************************************************************************
+
+
+
+
+
+
+
+
+
+
+
+
