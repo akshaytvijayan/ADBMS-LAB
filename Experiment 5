@@ -1,0 +1,57 @@
+ADBMS & ADBMS LAB2022 BATCH
+Assignment 4: Retrieving Data
+RESMI S R
+-------------------------------------------------------------------------------------------------------------------------------------------
+1.      Write a MongoDB query to display the customer documents having city ‘ekm’,’tvm’.
+
+A)
+
+> db.CUSTOMER.find({$or:[{"city":"Ernakulam"},{"city": "Trivandram"}]})
+
+{ "_id" : ObjectId("64817c9c413f3b0c670b517e"), "cust_id" : "1004", "name" : "Maanas", "age" : "22", "mob" : "6895215592", "address" : "Mannarkkad", "city" : "Ernakulam", "state" : "Kerala" }
+
+{ "_id" : ObjectId("64817c9c413f3b0c670b5180"), "cust_id" : "1006", "name" : "Divya", "age" : "21", "mob" : "4895215592", "address" : "Vengeri", "city" : "Ernakulam", "state" : "Kerala" }
+
+{ "_id" : ObjectId("64817c9c413f3b0c670b5182"), "cust_id" : "1008", "name" : "Amirtha", "age" : "21", "mob" : "1895215592", "address" : "Kakkodi", "city" : "Trivandram", "state" : "Kerala" }
+
+****************************************************************************************************************************************
+2.     Write a MongoDB query to display all customer documents who have age >50.
+
+A)
+> db.CUSTOMER.find({"age":{$gt:"50"}})
+
+{ "_id" : ObjectId("6482c63260d7c3c7eca2c667"), "cid" : "1009", "name" : "Gokul", "age" : "64", "mob" : "8172402692", "address" : "Makkada", "city" : "Thrissure", "state" : "Kerala" }
+
+{ "_id" : ObjectId("6482c63e60d7c3c7eca2c668"), "cid" : "1010", "name" : "Ram", "age" : "56", "mob" : "6572402692", "address" : "Parthasarathi", "city" : "Pathanamthitta", "state" : "Kerala" }
+
+{ "_id" : ObjectId("6482c64960d7c3c7eca2c669"), "cid" : "1011", "name" : "Shivan", "age" : "66", "mob" : "7672402692", "address" : "cherukullam", "city" : "Kollam", "state" : "Kerala" }
+
+****************************************************************************************************************************************
+3.      Write a MongoDB query to find customer documents who not live in ‘tvm’.
+
+A)
+> db.CUSTOMER.find({"city":{$ne:"Trivandrum"}})
+
+{ "_id" : ObjectId("648178f7413f3b0c670b517a"), "cid" : "1000", "name" : "Akshay", "age" : "24", "mob" : "9072402692", "address" : "kakkodi", "city" : "Kozhikode", "state" : "Kerala" }
+
+{ "_id" : ObjectId("64817945413f3b0c670b517b"), "cust_id" : "1002", "name" : "Akasha", "age" : "24", "mob" : "9895215592", "address" : "kakkanad", "city" : "Kannur", "state" : "Kerala" }
+
+{ "_id" : ObjectId("64817c9c413f3b0c670b517d"), "cust_id" : "1003", "name" : "Vishnu", "age" : "22", "mob" : "7895215592", "address" : "Alleppey", "city" : "Calicut", "state" : "Kerala" }
+
+{ "_id" : ObjectId("64817c9c413f3b0c670b517e"), "cust_id" : "1004", "name" : "Maanas", "age" : "22", "mob" : "6895215592", "address" : "Mannarkkad", "city" : "Ernakulam", "state" : "Kerala" }
+
+{ "_id" : ObjectId("64817c9c413f3b0c670b517f"), "cust_id" : "1005", "name" : "Mishub", "age" : "21", "mob" : "5895215592", "address" : "Ramanattukara", "city" : "Calicut", "state" : "Kerala" }
+
+{ "_id" : ObjectId("64817c9c413f3b0c670b5180"), "cust_id" : "1006", "name" : "Divya", "age" : "21", "mob" : "4895215592", "address" : "Vengeri", "city" : "Ernakulam", "state" : "Kerala" }
+
+{ "_id" : ObjectId("64817c9c413f3b0c670b5181"), "cust_id" : "1007", "name" : "Neenu", "age" : "20", "mob" : "3895215592", "address" : "Karaparambu", "city" : "Palakkad", "state" : "Kerala" }
+
+{ "_id" : ObjectId("64817c9c413f3b0c670b5182"), "cust_id" : "1008", "name" : "Amirtha", "age" : "21", "mob" : "1895215592", "address" : "Kakkodi", "city" : "Trivandram", "state" : "Kerala" }
+
+{ "_id" : ObjectId("6482c63260d7c3c7eca2c667"), "cid" : "1009", "name" : "Gokul", "age" : "64", "mob" : "8172402692", "address" : "Makkada", "city" : "Thrissure", "state" : "Kerala" }
+
+{ "_id" : ObjectId("6482c63e60d7c3c7eca2c668"), "cid" : "1010", "name" : "Ram", "age" : "56", "mob" : "6572402692", "address" : "Parthasarathi", "city" : "Pathanamthitta", "state" : "Kerala" }
+
+{ "_id" : ObjectId("6482c64960d7c3c7eca2c669"), "cid" : "1011", "name" : "Shivan", "age" : "66", "mob" : "7672402692", "address" : "cherukullam", "city" : "Kollam", "state" : "Kerala" }
+
+****************************************************************************************************************************************
