@@ -1,0 +1,70 @@
+ADBMS & ADBMS LAB2022 BATCH
+Assignment No: 6 NoSQL – ADMINISTRATION
+RESMI S R
+•
+1.      Write a MongoDB query to create a user “CUSTOMER1” and grant the read role in the INVOICE database.
+
+A)
+> db.createUser({user:"CUSTOMER1",pwd:"1234",roles:[{role:"read",db:"invoice"}]})
+Successfully added user: {
+	"user" : "CUSTOMER1",
+	"roles" : [
+		{
+			"role" : "read",
+			"db" : "invoice"
+		}
+	]
+}
+******************************************************************************************************************************************
+2.      Write a MongoDB query to create the backup for the INVOICE database.
+
+A)
+ksb@ksb-OptiPlex-3060:~$ mongodump
+
+2023-06-14T15:02:06.473+0530	writing admin.system.users to dump/admin/system.users.bson
+2023-06-14T15:02:06.473+0530	done dumping admin.system.users (1 document)
+2023-06-14T15:02:06.473+0530	writing admin.system.version to dump/admin/system.version.bson
+2023-06-14T15:02:06.473+0530	done dumping admin.system.version (2 documents)
+2023-06-14T15:02:06.474+0530	writing invoice.CUSTOMER to dump/invoice/CUSTOMER.bson
+2023-06-14T15:02:06.474+0530	writing invoice.PRODUCT to dump/invoice/PRODUCT.bson
+2023-06-14T15:02:06.474+0530	done dumping invoice.CUSTOMER (11 documents)
+2023-06-14T15:02:06.474+0530	done dumping invoice.PRODUCT (8 documents)
+******************************************************************************************************************************************
+3.      Write a MongoDB query to restore a particular database or a collection.
+
+A)
+ksb@ksb-OptiPlex-3060:~$ mongorestore
+2023-06-14T15:03:43.029+0530	using default 'dump' directory
+2023-06-14T15:03:43.029+0530	preparing collections to restore from
+2023-06-14T15:03:43.031+0530	reading metadata for invoice.CUSTOMER from dump/invoice/CUSTOMER.metadata.json
+2023-06-14T15:03:43.031+0530	reading metadata for invoice.PRODUCT from dump/invoice/PRODUCT.metadata.json
+2023-06-14T15:03:43.031+0530	restoring to existing collection invoice.CUSTOMER without dropping
+2023-06-14T15:03:43.031+0530	restoring invoice.CUSTOMER from dump/invoice/CUSTOMER.bson
+2023-06-14T15:03:43.031+0530	restoring to existing collection invoice.PRODUCT without dropping
+2023-06-14T15:03:43.031+0530	restoring invoice.PRODUCT from dump/invoice/PRODUCT.bson
+2023-06-14T15:03:43.032+0530	continuing through error: E11000 duplicate key error collection: invoice.CUSTOMER index: _id_ dup key: { _id: ObjectId('648178f7413f3b0c670b517a') }
+2023-06-14T15:03:43.032+0530	continuing through error: E11000 duplicate key error collection: invoice.CUSTOMER index: _id_ dup key: { _id: ObjectId('64817945413f3b0c670b517b') }
+2023-06-14T15:03:43.032+0530	continuing through error: E11000 duplicate key error collection: invoice.CUSTOMER index: _id_ dup key: { _id: ObjectId('64817c9c413f3b0c670b517d') }
+2023-06-14T15:03:43.032+0530	continuing through error: E11000 duplicate key error collection: invoice.CUSTOMER index: _id_ dup key: { _id: ObjectId('64817c9c413f3b0c670b517e') }
+2023-06-14T15:03:43.032+0530	continuing through error: E11000 duplicate key error collection: invoice.CUSTOMER index: _id_ dup key: { _id: ObjectId('64817c9c413f3b0c670b517f') }
+2023-06-14T15:03:43.032+0530	continuing through error: E11000 duplicate key error collection: invoice.CUSTOMER index: _id_ dup key: { _id: ObjectId('64817c9c413f3b0c670b5180') }
+2023-06-14T15:03:43.033+0530	continuing through error: E11000 duplicate key error collection: invoice.CUSTOMER index: _id_ dup key: { _id: ObjectId('64817c9c413f3b0c670b5181') }
+2023-06-14T15:03:43.033+0530	continuing through error: E11000 duplicate key error collection: invoice.CUSTOMER index: _id_ dup key: { _id: ObjectId('64817c9c413f3b0c670b5182') }
+2023-06-14T15:03:43.033+0530	continuing through error: E11000 duplicate key error collection: invoice.CUSTOMER index: _id_ dup key: { _id: ObjectId('6482c63260d7c3c7eca2c667') }
+2023-06-14T15:03:43.033+0530	continuing through error: E11000 duplicate key error collection: invoice.CUSTOMER index: _id_ dup key: { _id: ObjectId('6482c63e60d7c3c7eca2c668') }
+2023-06-14T15:03:43.033+0530	continuing through error: E11000 duplicate key error collection: invoice.CUSTOMER index: _id_ dup key: { _id: ObjectId('6482c64960d7c3c7eca2c669') }
+2023-06-14T15:03:43.033+0530	continuing through error: E11000 duplicate key error collection: invoice.PRODUCT index: _id_ dup key: { _id: ObjectId('64818095413f3b0c670b5183') }
+2023-06-14T15:03:43.033+0530	continuing through error: E11000 duplicate key error collection: invoice.PRODUCT index: _id_ dup key: { _id: ObjectId('64818095413f3b0c670b5184') }
+2023-06-14T15:03:43.033+0530	continuing through error: E11000 duplicate key error collection: invoice.PRODUCT index: _id_ dup key: { _id: ObjectId('64818095413f3b0c670b5185') }
+2023-06-14T15:03:43.033+0530	continuing through error: E11000 duplicate key error collection: invoice.PRODUCT index: _id_ dup key: { _id: ObjectId('64818095413f3b0c670b5186') }
+2023-06-14T15:03:43.033+0530	continuing through error: E11000 duplicate key error collection: invoice.PRODUCT index: _id_ dup key: { _id: ObjectId('64818095413f3b0c670b5187') }
+2023-06-14T15:03:43.033+0530	continuing through error: E11000 duplicate key error collection: invoice.PRODUCT index: _id_ dup key: { _id: ObjectId('64818095413f3b0c670b5188') }
+2023-06-14T15:03:43.033+0530	continuing through error: E11000 duplicate key error collection: invoice.PRODUCT index: _id_ dup key: { _id: ObjectId('64818095413f3b0c670b5189') }
+2023-06-14T15:03:43.033+0530	continuing through error: E11000 duplicate key error collection: invoice.PRODUCT index: _id_ dup key: { _id: ObjectId('64818095413f3b0c670b518a') }
+2023-06-14T15:03:43.042+0530	finished restoring invoice.CUSTOMER (0 documents, 11 failures)
+2023-06-14T15:03:43.042+0530	finished restoring invoice.PRODUCT (0 documents, 8 failures)
+2023-06-14T15:03:43.042+0530	restoring users from dump/admin/system.users.bson
+2023-06-14T15:03:43.324+0530	no indexes to restore for collection invoice.CUSTOMER
+2023-06-14T15:03:43.324+0530	no indexes to restore for collection invoice.PRODUCT
+2023-06-14T15:03:43.324+0530	0 document(s) restored successfully. 19 document(s) failed to restore.
+******************************************************************************************************************************************
