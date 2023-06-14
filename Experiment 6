@@ -19,42 +19,9 @@ Successfully added user: {
 2.      Write a MongoDB query to create the backup for the INVOICE database.
 
 A)
-ksb@ksb-OptiPlex-3060:~$ mongodump
 
-2023-06-14T15:02:06.473+0530	writing admin.system.users to dump/admin/system.users.bson
-2023-06-14T15:02:06.473+0530	done dumping admin.system.users (1 document)
-2023-06-14T15:02:06.473+0530	writing admin.system.version to dump/admin/system.version.bson
-2023-06-14T15:02:06.473+0530	done dumping admin.system.version (2 documents)
-2023-06-14T15:02:06.474+0530	writing invoice.CUSTOMER to dump/invoice/CUSTOMER.bson
-2023-06-14T15:02:06.474+0530	writing invoice.PRODUCT to dump/invoice/PRODUCT.bson
-2023-06-14T15:02:06.474+0530	done dumping invoice.CUSTOMER (11 documents)
-2023-06-14T15:02:06.474+0530	done dumping invoice.PRODUCT (8 documents)
 ******************************************************************************************************************************************
 3.      Write a MongoDB query to restore a particular database or a collection.
 
-A)
-use invoice
-switched to db invoice
-> db.dropDatabase()
-{ "dropped" : "invoice", "ok" : 1 }
 
-> show dbs
-admin    0.000GB
-config   0.000GB
-invoice  0.000GB
-local    0.000GB
-
-ksb@ksb-OptiPlex-3060:~$ mongorestore
-2023-06-14T15:22:10.614+0530	using default 'dump' directory
-2023-06-14T15:22:10.614+0530	preparing collections to restore from
-2023-06-14T15:22:10.615+0530	reading metadata for invoice.CUSTOMER from dump/invoice/CUSTOMER.metadata.json
-2023-06-14T15:22:10.615+0530	reading metadata for invoice.PRODUCT from dump/invoice/PRODUCT.metadata.json
-2023-06-14T15:22:10.917+0530	restoring invoice.PRODUCT from dump/invoice/PRODUCT.bson
-2023-06-14T15:22:10.936+0530	finished restoring invoice.PRODUCT (8 documents, 0 failures)
-2023-06-14T15:22:11.056+0530	restoring invoice.CUSTOMER from dump/invoice/CUSTOMER.bson
-2023-06-14T15:22:11.072+0530	finished restoring invoice.CUSTOMER (11 documents, 0 failures)
-2023-06-14T15:22:11.072+0530	restoring users from dump/admin/system.users.bson
-2023-06-14T15:22:11.349+0530	no indexes to restore for collection invoice.CUSTOMER
-2023-06-14T15:22:11.349+0530	no indexes to restore for collection invoice.PRODUCT
-2023-06-14T15:22:11.349+0530	19 document(s) restored successfully. 0 document(s) failed to restore.
 ******************************************************************************************************************************************
