@@ -15,13 +15,40 @@ Successfully added user: {
 		}
 	]
 }
-******************************************************************************************************************************************
+
+ksb@ksb-OptiPlex-3060:~$ mongo -u customer1 -p
+MongoDB shell version v4.4.22
+Enter password: 
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("95fc94e7-924f-42d3-be7d-7731b3e35cde") }
+MongoDB server version: 4.4.22
+---
+The server generated these startup warnings when booting: 
+        2023-06-15T14:29:45.086+05:30: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine. See http://dochub.mongodb.org/core/prodnotes-filesystem
+        2023-06-15T14:29:46.228+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+********************************************************************************************************************************************************************
 2.      Write a MongoDB query to create the backup for the INVOICE database.
 
 A)
-
-******************************************************************************************************************************************
+ksb@ksb-OptiPlex-3060:~$  mongodump --db invoice
+2023-06-15T15:32:23.090+0530	writing invoice.PRODUCT to dump/invoice/PRODUCT.bson
+2023-06-15T15:32:23.091+0530	done dumping invoice.PRODUCT (8 documents)
+2023-06-15T15:32:23.134+0530	writing invoice.CUSTOMER to dump/invoice/CUSTOMER.bson
+2023-06-15T15:32:23.136+0530	done dumping invoice.CUSTOMER (11 documents)
+************************************************************************************************************************************************************************
 3.      Write a MongoDB query to restore a particular database or a collection.
 
-
-******************************************************************************************************************************************
+A)
+ksb@ksb-OptiPlex-3060:~$ mongorestore --db invoice dump/invoice
+2023-06-15T15:37:16.070+0530	The --db and --collection flags are deprecated for this use-case; please use --nsInclude instead, i.e. with --nsInclude=${DATABASE}.${COLLECTION}
+2023-06-15T15:37:16.070+0530	building a list of collections to restore from dump/invoice dir
+2023-06-15T15:37:16.070+0530	reading metadata for invoice.CUSTOMER from dump/invoice/CUSTOMER.metadata.json
+2023-06-15T15:37:16.070+0530	reading metadata for invoice.PRODUCT from dump/invoice/PRODUCT.metadata.json
+2023-06-15T15:37:16.408+0530	restoring invoice.CUSTOMER from dump/invoice/CUSTOMER.bson
+2023-06-15T15:37:16.422+0530	finished restoring invoice.CUSTOMER (11 documents, 0 failures)
+2023-06-15T15:37:16.496+0530	restoring invoice.PRODUCT from dump/invoice/PRODUCT.bson
+2023-06-15T15:37:16.508+0530	finished restoring invoice.PRODUCT (8 documents, 0 failures)
+2023-06-15T15:37:16.508+0530	no indexes to restore for collection invoice.CUSTOMER
+2023-06-15T15:37:16.508+0530	no indexes to restore for collection invoice.PRODUCT
+2023-06-15T15:37:16.508+0530	19 document(s) restored successfully. 0 document(s) failed to restore.
+************************************************************************************************************************************************************************
