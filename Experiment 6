@@ -52,3 +52,5 @@ ksb@ksb-OptiPlex-3060:~$ mongorestore --db invoice dump/invoice
 2023-06-15T15:37:16.508+0530	no indexes to restore for collection invoice.PRODUCT
 2023-06-15T15:37:16.508+0530	19 document(s) restored successfully. 0 document(s) failed to restore.
 ************************************************************************************************************************************************************************
+
+//VERIFIED
