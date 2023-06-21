@@ -1,0 +1,54 @@
+ADBMS & ADBMS LAB2022 BATCH
+Assignment No: 7- NoSQL Shell Commands
+RESMI S R
+*****************************************************************************************************************************************
+1.      Write
+a MongoDB query to create an index for the collection customer using the field
+customer_name.
+
+A)
+
+> db.customer.createIndex({name:1})
+{
+	"createdCollectionAutomatically" : true,
+	"numIndexesBefore" : 1,
+	"numIndexesAfter" : 2,
+	"ok" : 1
+}
+> db.CUSTOMER.createIndex({name:1})
+{
+	"createdCollectionAutomatically" : false,
+	"numIndexesBefore" : 1,
+	"numIndexesAfter" : 2,
+	"ok" : 1
+}
+> db.CUSTOMER.getIndexes()
+[
+	{
+		"v" : 2,
+		"key" : {
+			"_id" : 1
+		},
+		"name" : "_id_"
+	},
+	{
+		"v" : 2,
+		"key" : {
+			"name" : 1
+		},
+		"name" : "name_1"
+	}
+]
+*****************************************************************************************************************************************
+2.      Create
+two MongoDB replication servers and do the necessary operations.
+
+A)
+
+*****************************************************************************************************************************************
+3.      Perform
+MongoDB sharding.
+
+A)
+
+*****************************************************************************************************************************************
