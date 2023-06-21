@@ -8,13 +8,6 @@ customer_name.
 
 A)
 
-> db.customer.createIndex({name:1})
-{
-	"createdCollectionAutomatically" : true,
-	"numIndexesBefore" : 1,
-	"numIndexesAfter" : 2,
-	"ok" : 1
-}
 > db.CUSTOMER.createIndex({name:1})
 {
 	"createdCollectionAutomatically" : false,
