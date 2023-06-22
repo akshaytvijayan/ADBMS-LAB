@@ -38,6 +38,7 @@ A)
 		"name" : "name_1"
 	}
 ]
+//VERIFIED
 *****************************************************************************************************************************************
 2.      Create
 two MongoDB replication servers and do the necessary operations.
